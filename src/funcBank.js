@@ -205,6 +205,11 @@ function transferMoney() {
             messageElement.textContent = `Chuyển tiền thành công từ tài khoản ${fromAccount} đến tài khoản ${toAccount}. Số tiền: ${amount} VND.`;
             messageElement.style.color = "green"; // Hiển thị màu xanh cho thông báo thành công
             showTransactions();  // Hiển thị lại danh sách giao dịch
+
+            // Xóa hết dữ liệu trong các ô input sau khi giao dịch thành công
+            document.getElementById("from-account").value = "";
+            document.getElementById("to-account").value = "";
+            document.getElementById("transaction-amount").value = "";
         } else {
             // Nếu chuyển tiền thất bại (ví dụ: số dư không đủ hoặc lỗi khác)
             messageElement.textContent = "Giao dịch không thành công. Vui lòng kiểm tra lại thông tin!";
@@ -241,8 +246,8 @@ function showTransactions() {
             detailElement.innerHTML = `
                 <strong>ID giao dịch:</strong> ${transactionData.transactionId}<br>
                 <strong>Loại giao dịch:</strong> ${transactionData.type}<br>
-                <strong>Người gửi:</strong> ${transactionData._fromAccount}<br>
-                <strong>Người nhận:</strong> ${transactionData._toAccount}<br>
+                <strong>Người gửi:</strong> ${transactionData.fromAccount}<br>
+                <strong>Người nhận:</strong> ${transactionData.toAccount}<br>
                 <strong>Số tiền:</strong> ${transactionData.amount} VND<br>
                 <strong>Thời gian:</strong> ${transactionData.timestamp}
             `;
