@@ -60,7 +60,26 @@ function addCustomer() {
     bank.addCustomer(newCustomer);
     document.getElementById("customer-name").value = ""; // Xóa nội dung ô nhập
     showCustomers();
-    // updateCustomerDropdown();
+    updateCustomerDropdown();
+}
+
+// Cập nhật danh sách khách hàng vào dropdown
+function updateCustomerDropdown() {
+    const customerDropdown = document.getElementById('account-customer');
+    customerDropdown.innerHTML = ""; // Xóa danh sách cũ
+
+    bank._customers.forEach(customer => {
+        const option = document.createElement('option');
+        option.value = customer._customerId;
+        option.textContent = `${customer._customerName} (ID: ${customer._customerId})`;
+        customerDropdown.appendChild(option);
+    });
+
+    // Thêm sự kiện onchange vào dropdown khách hàng
+    customerDropdown.onchange = function() {
+        const selectedCustomerId = customerDropdown.value;
+        showAccounts(selectedCustomerId); // Cập nhật thông tin tài khoản khi chọn khách hàng khác
+    };
 }
 
 
