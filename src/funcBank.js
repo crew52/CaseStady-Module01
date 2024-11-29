@@ -174,11 +174,20 @@ function addAccount() {
         const newAccount = new Account(accountNumber, customerId, accountType);
         customer.setAccount(newAccount); // Thêm tài khoản mới vào khách hàng
         document.getElementById("account-type").value = ""; // Xóa nội dung ô nhập
-        showAccounts(customerId); // Hiển thị lại danh sách tài khoản của khách hàng
+
+        // Ẩn form thêm tài khoản sau khi thêm thành công
+        const form = document.getElementById('account-form');
+        if (form) {
+            form.style.display = 'none'; // Ẩn form
+        }
+
+        // Hiển thị lại danh sách tài khoản của khách hàng
+        showAccounts(customerId);
     } else {
         console.error("Customer not found");
     }
 }
+
 
 
 
