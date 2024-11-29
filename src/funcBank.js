@@ -47,7 +47,7 @@ function showCustomers() {
     bank._customers.forEach(customer => {
         const listItem = document.createElement('li');
         listItem.textContent = `${customer._customerName} (ID: ${customer._customerId})`;
-        // listItem.onclick = () => showAccounts(customer._customerId);
+        listItem.onclick = () => showAccounts(customer._customerId);
         customerList.appendChild(listItem);
     })
 }
@@ -120,15 +120,26 @@ function showAccounts(customerId) {
             messageDiv.style.display = "block";
             messageDiv.textContent = "No account found for this customer.";
         }
-        return;
-    }
 
-    // Nếu có tài khoản, hiển thị thông tin tài khoản
-    if (accountList) {
-        accountList.innerHTML = ""; // Xóa danh sách cũ
-        const listItem = document.createElement("li");
-        listItem.textContent = `${account._accountType}: ${account._balance} VND`;
-        accountList.appendChild(listItem);
+        // Hiển thị nút thêm tài khoản nếu không có tài khoản
+        const addAccountButton = document.querySelector("#account-actions button");
+        if (addAccountButton) {
+            addAccountButton.style.display = "block"; // Hiển thị nút thêm tài khoản
+        }
+    } else {
+        // Nếu khách hàng có tài khoản, hiển thị thông tin tài khoản
+        if (accountList) {
+            accountList.innerHTML = ""; // Xóa danh sách cũ
+            const listItem = document.createElement("li");
+            listItem.textContent = `${account._accountType}: ${account._balance} VND`;
+            accountList.appendChild(listItem);
+        }
+
+        // Ẩn nút thêm tài khoản nếu khách hàng đã có tài khoản
+        const addAccountButton = document.querySelector("#account-actions button");
+        if (addAccountButton) {
+            addAccountButton.style.display = "none"; // Ẩn nút thêm tài khoản
+        }
     }
 
     // Hiển thị khu vực thao tác với tài khoản
@@ -148,7 +159,6 @@ function showAccountForm() {
         form.style.display = 'none'; // Ẩn form
     }
 }
-
 
 
 
