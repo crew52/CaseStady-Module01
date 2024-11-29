@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../enum/enum.js"></script>
+<script src="../entity/account.js"></script>
+<script src="../entity/transaction.js"></script>
+<script>
+  // Tạo tài khoản và thực hiện giao dịch
+  const account1 = new Account("A001", "John Doe", "CHECKING");
+  account1.deposit(500);  // Gửi tiền
+  account1.withdraw(200); // Rút tiền
+  account1.deposit(300);  // Gửi tiền
+  account1.withdraw(100); // Rút tiền
+</script>
+</body>
+</html>
