@@ -92,17 +92,18 @@ class Bank {
         }
 
         // Thực hiện giao dịch chuyển tiền
-        fromAccount.withdraw(amount); // Rút tiền từ tài khoản nguồn
-        toAccount.deposit(amount); // Nạp tiền vào tài khoản đích
+        fromAccount.withdraw(amount, true); // Rút tiền từ tài khoản nguồn
+        toAccount.deposit(amount, true); // Nạp tiền vào tài khoản đích
 
-        // Ghi lại giao dịch chuyển tiền
-        this._transactions.push({
-            fromAccountNumber,
-            toAccountNumber,
-            type: "Transfer",
-            amount,
-            date: new Date()
-        });
+
+        // Tạo mã giao dịch duy nhất cho chuyển tiền
+        const transactionId = `T${this._transactions.length + 1}`; // Mã giao dịch như T1, T2, T3...
+
+        // Tạo đối tượng Transaction
+        const transaction = new Transaction(transactionId, TypeTransaction.TRANSFER, amount, fromAccountNumber, toAccountNumber);
+
+        // Ghi lại giao dịch
+        transaction.record(); // Gọi record() để in thông tin giao dịch
 
         console.log(`Đã chuyển ${amount} từ tài khoản ${fromAccountNumber} sang tài khoản ${toAccountNumber}`);
     }

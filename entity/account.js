@@ -45,16 +45,18 @@ class Account {
     }
 
     // GUI TIEN VAO TK
-    deposit(amount) {
+    deposit(amount, isTransfer = false) {
         if (amount > 0) {
             this._balance += amount; // Cập nhật số dư sau khi nạp tiền
 
-            // Tạo mã giao dịch cho gửi tiền
-            const transactionId = `D${String(++Account._transactionCounter.deposit).padStart(3, '0')}`;
+            if (!isTransfer) {
+                // Tạo mã giao dịch cho gửi tiền
+                const transactionId = `D${String(++Account._transactionCounter.deposit).padStart(3, '0')}`;
 
-            // Tạo và ghi lại giao dịch
-            const depositTransaction = new Transaction(transactionId, TypeTransaction.DEPOSIT, amount, this._accountNumber);
-            depositTransaction.record();
+                // Tạo và ghi lại giao dịch
+                const depositTransaction = new Transaction(transactionId, TypeTransaction.DEPOSIT, amount, this._accountNumber);
+                depositTransaction.record();
+            }
 
             console.log(`Đã gửi ${amount}. Số dư tài khoản hiện tại: ${this._balance}`);
         } else {
@@ -63,7 +65,7 @@ class Account {
     }
 
     // RUT TIEN TU TK
-    withdraw(amount) {
+    withdraw(amount, isTransfer = false) {
         if (amount > this._balance) {
             console.log("Số dư không đủ");
         } else if (amount <= 0) {
@@ -71,12 +73,14 @@ class Account {
         } else {
             this._balance -= amount; // Cập nhật số dư sau khi rút tiền
 
-            // Tạo mã giao dịch cho rút tiền
-            const transactionId = `W${String(++Account._transactionCounter.withdraw).padStart(3, '0')}`;
+            if (!isTransfer) {
+                // Tạo mã giao dịch cho rút tiền
+                const transactionId = `W${String(++Account._transactionCounter.withdraw).padStart(3, '0')}`;
 
-            // Tạo và ghi lại giao dịch
-            const withdrawTransaction = new Transaction(transactionId, TypeTransaction.WITHDRAW, amount, this._accountNumber);
-            withdrawTransaction.record();
+                // Tạo và ghi lại giao dịch
+                const withdrawTransaction = new Transaction(transactionId, TypeTransaction.WITHDRAW, amount, this._accountNumber);
+                withdrawTransaction.record();
+            }
 
             console.log(`Đã rút ${amount}, số dư còn lại: ${this._balance}`);
         }
