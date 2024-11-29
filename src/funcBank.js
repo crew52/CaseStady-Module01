@@ -82,6 +82,66 @@ function updateCustomerDropdown() {
     };
 }
 
+// Hiển thị tài khoản của khách hàng
+function showAccounts(customerId) {
+    console.log("Customer ID clicked: ", customerId); // Debugging
+
+    // Ẩn thông báo lỗi nếu có
+    const messageDiv = document.getElementById("message");
+    if (messageDiv) {
+        messageDiv.style.display = "none"; // Ẩn thông báo lỗi
+    }
+
+    // Tìm khách hàng theo ID
+    const customer = bank.findCustomerById(customerId);
+    if (!customer) {
+        console.log(`Customer with ID ${customerId} not found.`);
+        if (messageDiv) {
+            messageDiv.style.display = "block";
+            messageDiv.textContent = "Customer not found.";
+        }
+        return;
+    }
+
+    // Lấy tài khoản của khách hàng (customer._account)
+    const account = customer._account;
+    if (!account) {
+        console.log(`Customer with ID ${customerId} does not have an account.`);
+        if (messageDiv) {
+            messageDiv.style.display = "block";
+            messageDiv.textContent = "No account found for this customer.";
+        }
+        return;
+    }
+
+    // Hiển thị thông tin tài khoản
+    const accountList = document.getElementById("account-list");
+    if (accountList) {
+        accountList.innerHTML = ""; // Xóa danh sách cũ
+        const listItem = document.createElement("li");
+        listItem.textContent = `${account._accountType}: ${account._balance} VND`;
+        accountList.appendChild(listItem);
+    }
+
+    // Hiển thị khu vực thao tác với tài khoản
+    const accountActions = document.getElementById("account-actions");
+    if (accountActions) {
+        accountActions.style.display = "block";
+        document.getElementById("account-customer").value = customerId;
+    }
+}
+
+function showAccountForm() {
+    const form = document.getElementById('account-form');
+    // Kiểm tra trạng thái hiển thị hiện tại của form
+    if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block'; // Hiển thị form
+    } else {
+        form.style.display = 'none'; // Ẩn form
+    }
+}
+
+
 
 
 
