@@ -5,6 +5,7 @@ class Account {
     _accountType;
     _transactionIds;
     static _transactionCounter = { deposit: 0, withdraw: 0 };
+    static _accountCounter = 0; // Bộ đếm khách hàng
 
     constructor(accountNumber, accountHolder, accountType) {
         this._accountNumber = accountNumber; // stk
@@ -53,6 +54,12 @@ class Account {
 
     setTransactionIds(value) {
         this._transactionIds = value;
+    }
+
+    // Tạo ID khách hàng mới
+    static generateAccountId() {
+        this._accountCounter += 1;
+        return `AC${String(this._accountCounter).padStart(3, "0")}`;
     }
 
 // Thêm ID giao dịch vào danh sách

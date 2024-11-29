@@ -160,6 +160,26 @@ function showAccountForm() {
     }
 }
 
+// Thêm tài khoản cho khách hàng
+function addAccount() {
+    const customerId = document.getElementById("account-customer").value;
+    const accountType = document.getElementById("account-type").value.toUpperCase(); // Kiểm tra loại tài khoản
+    const customer = bank.findCustomerById(customerId);
+    if (customer) {
+        if (customer._account != null) {
+            showErrorMessage(`Khách hàng ${customer._customerName} không thể mở thêm tài khoản.`);
+            return;
+        }
+        const accountNumber = Account.generateAccountId();
+        const newAccount = new Account(accountNumber, customerId, accountType);
+        customer.setAccount(newAccount); // Thêm tài khoản mới vào khách hàng
+        document.getElementById("account-type").value = ""; // Xóa nội dung ô nhập
+        showAccounts(customerId); // Hiển thị lại danh sách tài khoản của khách hàng
+    } else {
+        console.error("Customer not found");
+    }
+}
+
 
 
 
