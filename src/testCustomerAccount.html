@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test customer-account</title>
+</head>
+<body>
+<script src="../enum/enum.js"></script>
+<script src="../entity/customer.js"></script>
+<script src="../entity/account.js"></script>
+<script>
+    // Tạo một khách hàng
+    const customer1 = new Customer("C001", "Nguyen Van A");
+
+    // Tạo tài khoản
+    const account1 = new Account("A001", "Nguyen Van A", AccountType.CHECKING);
+
+    // Kiểm tra tài khoản của khách hàng trước khi gắn
+    console.log(customer1.getAccounts()); // null
+
+    // Thêm tài khoản vào khách hàng
+    customer1.setAccount(account1);
+
+    // Kiểm tra tài khoản sau khi gắn
+    console.log(customer1.getAccounts()); // Account { _accountNumber: 'A001', _accountHolder: 'Nguyen Van A', _balance: 0, _accountType: 'SAVINGS' }
+
+    // Thêm tài khoản mới (nên bị từ chối vì khách hàng chỉ được 1 tài khoản)
+    const account2 = new Account("A002", "Nguyen Van A", AccountType.CHECKING);
+    customer1.setAccount(account2); // Khách hàng đã sở hữu tài khoản. Không thể gắn thêm.
+
+    console.log(customer1.hasAccount("A001")); // true, vì khách hàng sở hữu tài khoản A001
+    console.log(customer1.hasAccount("A002")); // false, vì tài khoản A002 không thuộc về khách hàng
+
+    // Thực hiện các giao dịch trên tài khoản
+    account1.deposit(500); // Đã gửi 500. Số dư tài khoản hiện tại: 500
+    account1.withdraw(200); // Đã rút 200, số dư còn lại: 300
+    account1.withdraw(400); // Số dư không đủ
+
+    // // Xóa tài khoản khỏi khách hàng
+    customer1.removeAccount(); // Tài khoản A001 đã bị xóa khỏi khách hàng
+
+    // Kiểm tra tài khoản sau khi xóa
+    console.log(customer1.getAccounts()); // null
+    console.log(customer1.hasAccount("A001")); // false, tài khoản đã bị xóa
+
+</script>
+</body>
+</html>
