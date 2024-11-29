@@ -15,18 +15,31 @@
 
   // Tạo khách hàng và tài khoản
   const customer1 = new Customer("C001", "Nguyen Van A");
-  const account1 = new Account("A001", "Nguyen Van A", "SAVINGS");
+  const account1 = new Account("A001", "Nguyen Van A", AccountType.CHECKING);
   customer1.setAccount(account1);
+
+  const customer2 = new Customer("C002", "Nguyen Thi B");
+  const account2 = new Account("A002", "Nguyen Thi B", AccountType.CHECKING);
+  customer2.setAccount(account2);
 
   // Thêm khách hàng vào ngân hàng
   bank.addCustomer(customer1);
+  bank.addCustomer(customer2);
 
   // Thực hiện giao dịch (nạp tiền và rút tiền)
-  bank.performTransaction("A001", TypeTransaction.DEPOSIT, 500); // Nạp 500 vào tài khoản A001
-  bank.performTransaction("A001", TypeTransaction.WITHDRAW, 200); // Rút 200 từ tài khoản A001
+  // bank.performTransaction("A001", TypeTransaction.DEPOSIT, 500); // Nạp 500 vào tài khoản A001
+  // bank.performTransaction("A001", TypeTransaction.WITHDRAW, 200); // Rút 200 từ tài khoản A001
+
+  bank.performTransaction("A001", TypeTransaction.DEPOSIT, 1000); // Nạp 1000 vào tài khoản A001
+  bank.performTransaction("A002", TypeTransaction.DEPOSIT, 500); // Nạp 500 vào tài khoản A002
+  // Chuyển tiền giữa hai tài khoản
+  bank.transferMoney("A001", "A002", 300); // Chuyển 300 từ A001 sang A002
 
   // Liệt kê tất cả giao dịch của tài khoản A001
   bank.listTransactions("A001");
+
+  // Liệt kê tất cả giao dịch của tài khoản A002
+  bank.listTransactions("A002");
 </script>
 </body>
 </html>

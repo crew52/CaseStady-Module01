@@ -71,6 +71,42 @@ class Bank {
         }
     }
 
+    // Chuyển tiền giữa hai tài khoản
+    transferMoney(fromAccountNumber, toAccountNumber, amount) {
+        const fromCustomer = this._customers.find(c => c.getAccounts() && c.getAccounts().getAccountNumber() === fromAccountNumber);
+        const toCustomer = this._customers.find(c => c.getAccounts() && c.getAccounts().getAccountNumber() === toAccountNumber);
+
+        // Kiểm tra xem cả hai khách hàng có tồn tại không
+        if (!fromCustomer || !toCustomer) {
+            console.log("Một trong các tài khoản không tồn tại.");
+            return;
+        }
+
+        const fromAccount = fromCustomer.getAccounts();
+        const toAccount = toCustomer.getAccounts();
+
+        // Kiểm tra số dư tài khoản nguồn
+        if (fromAccount.getBalance() < amount) {
+            console.log("Số dư tài khoản nguồn không đủ để thực hiện giao dịch.");
+            return;
+        }
+
+        // Thực hiện giao dịch chuyển tiền
+        fromAccount.withdraw(amount); // Rút tiền từ tài khoản nguồn
+        toAccount.deposit(amount); // Nạp tiền vào tài khoản đích
+
+        // Ghi lại giao dịch chuyển tiền
+        this._transactions.push({
+            fromAccountNumber,
+            toAccountNumber,
+            type: "Transfer",
+            amount,
+            date: new Date()
+        });
+
+        console.log(`Đã chuyển ${amount} từ tài khoản ${fromAccountNumber} sang tài khoản ${toAccountNumber}`);
+    }
+
     // Liệt kê tất cả giao dịch của khách hàng
     listTransactions(accountNumber) {
         const transactions = this._transactions.filter(t => t.accountNumber === accountNumber);
