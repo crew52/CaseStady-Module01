@@ -25,6 +25,11 @@ class Bank {
         this._transactions = value;
     }
 
+    // Lưu giao dịch vào ngân hàng
+    addTransaction(transaction) {
+        this._transactions.push(transaction);
+    }
+
     // Thêm khách hàng vào ngân hàng
     addCustomer(customer) {
         if (customer instanceof Customer) {
@@ -50,24 +55,21 @@ class Bank {
         }
 
         const account = customer.getAccounts();
+        let transactionId;
+
         if (type === TypeTransaction.DEPOSIT) {
-            account.deposit(amount);
-            this._transactions.push({
-                accountNumber,
-                type: TypeTransaction.DEPOSIT,
-                amount,
-                date: new Date()
-            });
+            transactionId = account.deposit(amount);
         } else if (type === TypeTransaction.WITHDRAW) {
-            account.withdraw(amount);
-            this._transactions.push({
-                accountNumber,
-                type: TypeTransaction.WITHDRAW,
-                amount,
-                date: new Date()
-            });
+            transactionId = account.withdraw(amount);
         } else {
             console.log("Invalid transaction type.");
+            return;
+        }
+
+        if (transactionId) {
+            const transaction = new Transaction(transactionId, type, amount, accountNumber);
+            this.addTransaction(transaction);
+            account.addTransactionId(transactionId);
         }
     }
 
@@ -103,18 +105,37 @@ class Bank {
         const transaction = new Transaction(transactionId, TypeTransaction.TRANSFER, amount, fromAccountNumber, toAccountNumber);
 
         // Ghi lại giao dịch
-        transaction.record(); // Gọi record() để in thông tin giao dịch
+        this.addTransaction(transaction);
+        fromAccount.addTransactionId(transactionId);
+        toAccount.addTransactionId(transactionId);
+        transaction.record();
 
         console.log(`Đã chuyển ${amount} từ tài khoản ${fromAccountNumber} sang tài khoản ${toAccountNumber}`);
     }
 
-    // Liệt kê tất cả giao dịch của khách hàng
+    // Truy xuất giao dịch
     listTransactions(accountNumber) {
-        const transactions = this._transactions.filter(t => t.accountNumber === accountNumber);
+        const customer = this._customers.find(c => c.getAccounts() && c.getAccounts().getAccountNumber() === accountNumber);
+
+        if (!customer) {
+            console.log(`Account ${accountNumber} not found.`);
+            return;
+        }
+
+        const account = customer.getAccounts();
         console.log(`Transactions for account ${accountNumber}:`);
-        transactions.forEach(transaction => {
-            console.log(`${transaction.type} of ${transaction.amount} at ${transaction.date}`);
+        account.getTransactionIds().forEach(transactionId => {
+            const transaction = this._transactions.find(t => t.getTransactionId() === transactionId);
+            if (transaction) {
+                transaction.record();
+            }
         });
+    }
+
+    // Xem toàn bộ giao dịch của ngân hàng
+    listAllTransactions() {
+        console.log("All Transactions in Bank:");
+        this._transactions.forEach(transaction => transaction.record());
     }
 
 

@@ -46,7 +46,16 @@ class Account {
         this._accountType = value;
     }
 
-    // Thêm ID giao dịch vào danh sách
+
+    getTransactionIds() {
+        return this._transactionIds;
+    }
+
+    setTransactionIds(value) {
+        this._transactionIds = value;
+    }
+
+// Thêm ID giao dịch vào danh sách
     addTransactionId(transactionId) {
         this._transactionIds.push(transactionId);
     }
