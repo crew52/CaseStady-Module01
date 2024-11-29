@@ -18,7 +18,7 @@ cus1.setAccount(rew2);
 // cus2.addAccount(son1);
 cus2.setAccount(son2);
 
-rew2.deposit(100000);
+rew2.deposit(200000);
 son2.deposit(100000);
 
 showCustomers();
@@ -105,8 +105,17 @@ function showAccounts(customerId) {
 
     // Lấy tài khoản của khách hàng (customer._account)
     const account = customer._account;
-    if (!account) {
+    const accountList = document.getElementById("account-list");
+
+    // Kiểm tra nếu khách hàng không có tài khoản
+    if (!account || account.length === 0) {
         console.log(`Customer with ID ${customerId} does not have an account.`);
+        if (accountList) {
+            accountList.innerHTML = ""; // Xóa danh sách tài khoản cũ
+            const noAccountItem = document.createElement("li");
+            noAccountItem.textContent = "No account found for this customer.";
+            accountList.appendChild(noAccountItem);
+        }
         if (messageDiv) {
             messageDiv.style.display = "block";
             messageDiv.textContent = "No account found for this customer.";
@@ -114,8 +123,7 @@ function showAccounts(customerId) {
         return;
     }
 
-    // Hiển thị thông tin tài khoản
-    const accountList = document.getElementById("account-list");
+    // Nếu có tài khoản, hiển thị thông tin tài khoản
     if (accountList) {
         accountList.innerHTML = ""; // Xóa danh sách cũ
         const listItem = document.createElement("li");
