@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test bank</title>
+</head>
+<body>
+<script src="../enum/enum.js"></script>
+<script src="../entity/customer.js"></script>
+<script src="../entity/account.js"></script>
+<script src="../entity/bank.js"></script>
+<script>
+  // Tạo một ngân hàng
+  const bank = new Bank();
+
+  // Tạo khách hàng và tài khoản
+  const customer1 = new Customer("C001", "Nguyen Van A");
+  const account1 = new Account("A001", "Nguyen Van A", "SAVINGS");
+  customer1.setAccount(account1);
+
+  // Thêm khách hàng vào ngân hàng
+  bank.addCustomer(customer1);
+
+  // Thực hiện giao dịch (nạp tiền và rút tiền)
+  bank.performTransaction("A001", TypeTransaction.DEPOSIT, 500); // Nạp 500 vào tài khoản A001
+  bank.performTransaction("A001", TypeTransaction.WITHDRAW, 200); // Rút 200 từ tài khoản A001
+
+  // Liệt kê tất cả giao dịch của tài khoản A001
+  bank.listTransactions("A001");
+</script>
+</body>
+</html>
