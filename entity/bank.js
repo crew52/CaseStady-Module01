@@ -124,6 +124,7 @@ class Bank {
         transaction.record();
 
         console.log(`Đã chuyển ${amount} từ tài khoản ${fromAccountNumber} sang tài khoản ${toAccountNumber}`);
+        return true;
     }
 
     // Truy xuất giao dịch

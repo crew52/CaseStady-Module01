@@ -73,4 +73,15 @@ class Transaction {
             From Account: ${this._fromAccount}
             To Account: ${this._toAccount ? this._toAccount : "N/A"}`);
     }
+
+    display() {
+        return {
+            transactionId: this._transactionId,
+            type: this._type,
+            amount: this._amount,
+            timestamp: this._timestamp,
+            fromAccount: this._fromAccount,
+            toAccount: this._toAccount,
+        };
+    }
 }
