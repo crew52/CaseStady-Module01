@@ -1,13 +1,13 @@
 class Bank {
     _customers;
     _transactions;
+    static _customerCounter = 0; // Bộ đếm khách hàng
 
 
     constructor() {
         this._customers = [];
         this._transactions = [];
     }
-
 
     getCustomers() {
         return this._customers;
@@ -23,6 +23,12 @@ class Bank {
 
     setTransactions(value) {
         this._transactions = value;
+    }
+
+    // Tạo ID khách hàng mới
+    static generateCustomerId() {
+        this._customerCounter += 1;
+        return `C${String(this._customerCounter).padStart(3, "0")}`; // Định dạng C001, C002...
     }
 
     // Lưu giao dịch vào ngân hàng

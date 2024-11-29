@@ -41,7 +41,7 @@ function showCustomerForm() {
 }
 
 // display danh sach customer
-function  showCustomers() {
+function showCustomers() {
     const customerList = document.getElementById('customer-list');
     customerList.innerHTML = "";
     bank._customers.forEach(customer => {
@@ -55,7 +55,7 @@ function  showCustomers() {
 // Thêm khách hàng mới
 function addCustomer() {
     const customerName = document.getElementById("customer-name").value;
-    const customerId = `C${Date.now()}`;
+    const customerId = Bank.generateCustomerId();
     const newCustomer = new Customer(customerId, customerName);
     bank.addCustomer(newCustomer);
     document.getElementById("customer-name").value = ""; // Xóa nội dung ô nhập
