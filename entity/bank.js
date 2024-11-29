@@ -45,9 +45,16 @@ class Bank {
         return this._customers.find(customer => customer.getCustomerId() === customerId);
     }
 
+    // Tìm khách hàng dựa trên số tài khoản
+    findCustomerByAccountNumber(accountNumber) {
+        return this._customers.find(
+            customer => customer.getAccounts() && customer.getAccounts().getAccountNumber() === accountNumber
+        );
+    }
+
     // Thực hiện giao dịch cho khách hàng
     performTransaction(accountNumber, type, amount) {
-        const customer = this._customers.find(c => c.getAccounts() && c.getAccounts().getAccountNumber() === accountNumber);
+        const customer = this.findCustomerByAccountNumber(accountNumber);
 
         if (!customer) {
             console.log(`Customer with account ${accountNumber} not found.`);
@@ -75,8 +82,8 @@ class Bank {
 
     // Chuyển tiền giữa hai tài khoản
     transferMoney(fromAccountNumber, toAccountNumber, amount) {
-        const fromCustomer = this._customers.find(c => c.getAccounts() && c.getAccounts().getAccountNumber() === fromAccountNumber);
-        const toCustomer = this._customers.find(c => c.getAccounts() && c.getAccounts().getAccountNumber() === toAccountNumber);
+        const fromCustomer = this.findCustomerByAccountNumber(fromAccountNumber);
+        const toCustomer = this.findCustomerByAccountNumber(toAccountNumber);
 
         // Kiểm tra xem cả hai khách hàng có tồn tại không
         if (!fromCustomer || !toCustomer) {
