@@ -8,6 +8,7 @@
 <script src="../enum/enum.js"></script>
 <script src="../entity/customer.js"></script>
 <script src="../entity/account.js"></script>
+<script src="../entity/transaction.js"></script>
 <script>
     // Tạo một khách hàng
     const customer1 = new Customer("C001", "Nguyen Van A");
@@ -32,16 +33,28 @@
     console.log(customer1.hasAccount("A002")); // false, vì tài khoản A002 không thuộc về khách hàng
 
     // Thực hiện các giao dịch trên tài khoản
-    account1.deposit(500); // Đã gửi 500. Số dư tài khoản hiện tại: 500
-    account1.withdraw(200); // Đã rút 200, số dư còn lại: 300
-    account1.withdraw(400); // Số dư không đủ
+    console.log("Thực hiện giao dịch gửi tiền:");
+    const depositId = account1.deposit(500);
+    if (depositId) account1.addTransactionId(depositId);
 
-    // // Xóa tài khoản khỏi khách hàng
-    customer1.removeAccount(); // Tài khoản A001 đã bị xóa khỏi khách hàng
+    // Test rút tiền
+    console.log("Thực hiện giao dịch rút tiền:");
+    const withdrawId = account1.withdraw(200);
+    if (withdrawId) account1.addTransactionId(withdrawId);
 
-    // Kiểm tra tài khoản sau khi xóa
-    console.log(customer1.getAccounts()); // null
-    console.log(customer1.hasAccount("A001")); // false, tài khoản đã bị xóa
+    // Kiểm tra danh sách giao dịch
+    console.log("Danh sách ID giao dịch của tài khoản:");
+    console.log(account1._transactionIds);
+    //
+    // // // Xóa tài khoản khỏi khách hàng
+    // customer1.removeAccount(); // Tài khoản A001 đã bị xóa khỏi khách hàng
+    //
+    // // Kiểm tra tài khoản sau khi xóa
+    // console.log(customer1.getAccounts()); // null
+    // console.log(customer1.hasAccount("A001")); // false, tài khoản đã bị xóa
+
+
+
 
 </script>
 </body>

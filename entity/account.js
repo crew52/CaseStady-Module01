@@ -3,6 +3,7 @@ class Account {
     _accountHolder;
     _balance;
     _accountType;
+    _transactionIds;
     static _transactionCounter = { deposit: 0, withdraw: 0 };
 
     constructor(accountNumber, accountHolder, accountType) {
@@ -10,6 +11,7 @@ class Account {
         this._accountHolder = accountHolder; // chu tk
         this._balance = 0; // so du
         this._accountType = accountType;
+        this._transactionIds = []; // Khởi tạo danh sách giao dịch
     }
 
     getAccountNumber() {
@@ -44,6 +46,11 @@ class Account {
         this._accountType = value;
     }
 
+    // Thêm ID giao dịch vào danh sách
+    addTransactionId(transactionId) {
+        this._transactionIds.push(transactionId);
+    }
+
     // GUI TIEN VAO TK
     deposit(amount, isTransfer = false) {
         if (amount > 0) {
@@ -56,6 +63,8 @@ class Account {
                 // Tạo và ghi lại giao dịch
                 const depositTransaction = new Transaction(transactionId, TypeTransaction.DEPOSIT, amount, this._accountNumber);
                 depositTransaction.record();
+
+                return transactionId; // Trả về ID giao dịch
             }
 
             console.log(`Đã gửi ${amount}. Số dư tài khoản hiện tại: ${this._balance}`);
@@ -80,6 +89,7 @@ class Account {
                 // Tạo và ghi lại giao dịch
                 const withdrawTransaction = new Transaction(transactionId, TypeTransaction.WITHDRAW, amount, this._accountNumber);
                 withdrawTransaction.record();
+                return transactionId; // Trả về ID giao dịch
             }
 
             console.log(`Đã rút ${amount}, số dư còn lại: ${this._balance}`);
