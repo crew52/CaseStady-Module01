@@ -47,7 +47,7 @@ function showAccounts(customerId) {
         if (accountList) {
             accountList.innerHTML = ""; // Xóa danh sách cũ
             const listItem = document.createElement("li");
-            listItem.textContent = `${account._accountType}: ${account._balance} VND`;
+            listItem.textContent = `ID: ${account._accountNumber} || ${account._accountType}: ${account._balance} VND`;
             accountList.appendChild(listItem);
         }
 
