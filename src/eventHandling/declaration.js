@@ -20,5 +20,3 @@ cus2.setAccount(son2);
 // nap tien
 rew2.deposit(200000);
 son2.deposit(100000);
-
-showCustomers();

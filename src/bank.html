@@ -131,6 +131,28 @@
     </div>
 </section>
 
+<!-- Quản Lý Nạp/Rút Tiền -->
+<section id="deposit-withdraw-management">
+    <h2>Quản Lý Nạp/Rút Tiền</h2>
+    <div id="dw-message" style="color: red; display: none;"></div>
+
+    <div>
+        <label for="dw-account">Tài Khoản:</label>
+        <input type="text" id="dw-account" placeholder="Nhập số tài khoản">
+    </div>
+    <div>
+        <label for="dw-amount">Số Tiền:</label>
+        <input type="number" id="dw-amount" placeholder="Nhập số tiền">
+    </div>
+    <div>
+        <button onclick="handleDeposit()">Nạp Tiền</button>
+        <button onclick="handleWithdraw()">Rút Tiền</button>
+    </div>
+
+    <h3>Lịch Sử Giao Dịch</h3>
+    <ul id="dw-transaction-list"></ul>
+</section>
+
 <!-- Giao dịch -->
 <section id="transaction-management">
     <h2>Quản Lý Giao Dịch</h2>
@@ -159,5 +181,6 @@
 <script src="eventHandling/customerManagement.js"></script>
 <script src="eventHandling/accountManagement.js"></script>
 <script src="eventHandling/transactionManagement.js"></script>
+<script src="eventHandling/dwManagement.js"></script>
 </body>
 </html>
