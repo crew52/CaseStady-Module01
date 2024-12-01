@@ -55,9 +55,6 @@ function handleDeposit() {
     messageElement.style.color = "green";
     messageElement.style.display = "block";
 
-    // Cập nhật danh sách giao dịch
-    updateDWTransactionList(accountNumber);
-
     // Xóa dữ liệu nhập
     document.getElementById("dw-account").value = "";
     document.getElementById("dw-amount").value = "";
@@ -95,58 +92,10 @@ function handleWithdraw() {
     messageElement.style.color = "green";
     messageElement.style.display = "block";
 
-    // Cập nhật danh sách giao dịch
-    updateDWTransactionList(accountNumber);
-
     // Xóa dữ liệu nhập
     document.getElementById("dw-account").value = "";
     document.getElementById("dw-amount").value = "";
 }
 
-
-
-function updateDWTransactionList(accountNumber) {
-    const dwTransactionList = document.getElementById("dw-transaction-list");
-    dwTransactionList.innerHTML = "";
-
-    // Tìm khách hàng dựa trên số tài khoản
-    const customer = bank.findCustomerByAccountNumber(accountNumber);
-    if (!customer) {
-        const noTransactionItem = document.createElement("li");
-        noTransactionItem.textContent = "Không tìm thấy tài khoản.";
-        dwTransactionList.appendChild(noTransactionItem);
-        return;
-    }
-
-    // Lấy tài khoản từ khách hàng
-    const account = customer.getAccounts();
-    if (!account) {
-        const noTransactionItem = document.createElement("li");
-        noTransactionItem.textContent = "Không tìm thấy tài khoản.";
-        dwTransactionList.appendChild(noTransactionItem);
-        return;
-    }
-
-    // Lấy danh sách giao dịch từ tài khoản
-    const transactions = account.getTransactionIds().map(transactionId =>
-        bank.getTransactions().find(t => t.getTransactionId() === transactionId)
-    );
-
-    if (transactions.length === 0) {
-        const noTransactionItem = document.createElement("li");
-        noTransactionItem.textContent = "Không có giao dịch nào.";
-        dwTransactionList.appendChild(noTransactionItem);
-        return;
-    }
-
-    // Hiển thị danh sách giao dịch
-    transactions.forEach(transaction => {
-        if (transaction) {
-            const li = document.createElement("li");
-            li.textContent = `ID: ${transaction.getTransactionId()} | Loại: ${transaction.getType()} | Số tiền: ${transaction.getAmount()} | Thời gian: ${transaction.getTimestamp()}`;
-            dwTransactionList.appendChild(li);
-        }
-    });
-}
 
 
