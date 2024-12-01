@@ -58,34 +58,6 @@ class Bank {
         );
     }
 
-    // Thực hiện giao dịch cho khách hàng
-    performTransaction(accountNumber, type, amount) {
-        const customer = this.findCustomerByAccountNumber(accountNumber);
-
-        if (!customer) {
-            console.log(`Customer with account ${accountNumber} not found.`);
-            return;
-        }
-
-        const account = customer.getAccounts();
-        let transactionId;
-
-        if (type === TypeTransaction.DEPOSIT) {
-            transactionId = account.deposit(amount);
-        } else if (type === TypeTransaction.WITHDRAW) {
-            transactionId = account.withdraw(amount);
-        } else {
-            console.log("Invalid transaction type.");
-            return;
-        }
-
-        if (transactionId) {
-            const transaction = new Transaction(transactionId, type, amount, accountNumber);
-            this.addTransaction(transaction);
-            account.addTransactionId(transactionId);
-        }
-    }
-
     // Chuyển tiền giữa hai tài khoản
     transferMoney(fromAccountNumber, toAccountNumber, amount) {
         const fromCustomer = this.findCustomerByAccountNumber(fromAccountNumber);
