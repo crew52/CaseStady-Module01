@@ -2,8 +2,8 @@
 const bank = new Bank();
 // Khởi tạo danh sách giao dịch
 //
-let cus1 = new Customer("1","MCK");
-let cus2 = new Customer("2","Son Tung MTP");
+let cus1 = new Customer("1", "MCK");
+let cus2 = new Customer("2", "Son Tung MTP");
 bank.addCustomer(cus1);
 bank.addCustomer(cus2);
 
@@ -76,7 +76,7 @@ function updateCustomerDropdown() {
     });
 
     // Thêm sự kiện onchange vào dropdown khách hàng
-    customerDropdown.onchange = function() {
+    customerDropdown.onchange = function () {
         const selectedCustomerId = customerDropdown.value;
         showAccounts(selectedCustomerId); // Cập nhật thông tin tài khoản khi chọn khách hàng khác
     };
@@ -254,7 +254,7 @@ function showTransactions() {
             listItem.appendChild(detailElement);
 
             // Thêm sự kiện click để hiển thị hoặc ẩn chi tiết
-            transactionIdElement.addEventListener("click", function() {
+            transactionIdElement.addEventListener("click", function () {
                 // Kiểm tra nếu chi tiết đang ẩn hoặc hiển thị
                 if (detailElement.style.display === "none") {
                     detailElement.style.display = "block"; // Hiển thị chi tiết

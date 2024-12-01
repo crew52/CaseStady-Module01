@@ -4,7 +4,7 @@ class Account {
     _balance;
     _accountType;
     _transactionIds;
-    static _transactionCounter = { deposit: 0, withdraw: 0 };
+    static _transactionCounter = {deposit: 0, withdraw: 0};
     static _accountCounter = 0; // Bộ đếm khách hàng
 
     constructor(accountNumber, accountHolder, accountType) {

@@ -64,7 +64,7 @@ class Transaction {
         this._toAccount = value;
     }
 
-    record(){
+    record() {
         console.log(`Transaction Recorded: 
             ID: ${this._transactionId}, 
             Type: ${this._type}, 
