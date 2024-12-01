@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Ngân Hàng</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<h1>Hệ Thống Quản Lý Ngân Hàng</h1>
+
+<div class="container">
+    <!-- Quản lý khách hàng -->
+    <div class="column">
+        <section id="customer-management">
+            <h2>Quản Lý Khách Hàng</h2>
+            <button onclick="showCustomerForm()">Thêm Khách Hàng</button>
+            <div id="customer-form" class="hidden">
+                <input type="text" id="customer-name" placeholder="Tên khách hàng">
+                <button onclick="addCustomer()">Lưu Khách Hàng</button>
+            </div>
+            <h3>Danh Sách Khách Hàng</h3>
+            <ul id="customer-list"></ul>
+        </section>
+    </div>
+
+    <!-- Quản lý tài khoản -->
+    <div class="column">
+        <section id="account-management">
+            <h2>Quản Lý Tài Khoản</h2>
+            <div id="message" style="color: red; display: none;"></div>
+            <div>
+                <label for="account-customer">Chọn Khách Hàng:</label>
+                <select id="account-customer"></select>
+            </div>
+            <div id="account-actions" class="hidden">
+                <button onclick="showAccountForm()">Thêm Tài Khoản</button>
+                <div id="account-form" class="hidden">
+                    <label for="account-type">Chọn Loại Tài Khoản:</label>
+                    <select id="account-type">
+                        <option value="CHECKING">Checking</option>
+                    </select>
+                    <button onclick="addAccount()">Lưu Tài Khoản</button>
+                </div>
+                <h3>Danh Sách Tài Khoản</h3>
+                <ul id="account-list"></ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Quản lý nạp/rút tiền -->
+    <div class="column">
+        <section id="deposit-withdraw-management">
+            <h2>Quản Lý Nạp/Rút Tiền</h2>
+            <div id="dw-message" style="color: red; display: none;"></div>
+            <div>
+                <label for="dw-account">Tài Khoản:</label>
+                <input type="text" id="dw-account" placeholder="Nhập số tài khoản">
+            </div>
+            <div>
+                <label for="dw-amount">Số Tiền:</label>
+                <input type="number" id="dw-amount" placeholder="Nhập số tiền">
+            </div>
+            <div>
+                <button onclick="handleDeposit()">Nạp Tiền</button>
+                <button onclick="handleWithdraw()">Rút Tiền</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Quản lý giao dịch -->
+    <div class="column">
+        <section id="transaction-management">
+            <h2>Quản Lý Giao Dịch</h2>
+            <div id="transaction-message"></div>
+            <div>
+                <label for="from-account">Từ Tài Khoản:</label>
+                <input type="text" id="from-account">
+                <label for="to-account">Đến Tài Khoản:</label>
+                <input type="text" id="to-account">
+                <label for="transaction-amount">Số Tiền:</label>
+                <input type="number" id="transaction-amount">
+                <button onclick="transferMoney()">Chuyển Tiền</button>
+            </div>
+            <h3>Lịch Sử Giao Dịch</h3>
+            <ul id="transaction-list"></ul>
+        </section>
+    </div>
+</div>
+
+<!-- import enum-->
+<script src="../../enum/enum.js"></script>
+<!-- import entity-->
+<script src="../../entity/account.js"></script>
+<script src="../../entity/customer.js"></script>
+<script src="../../entity/transaction.js"></script>
+<script src="../../entity/bank.js"></script>
+<!-- import eventHandling-->
+<script src="../js/declaration.js"></script>
+<script src="../js/customerManagement.js"></script>
+<script src="../js/accountManagement.js"></script>
+<script src="../js/transactionManagement.js"></script>
+<script src="../js/dwManagement.js"></script>
+</body>
+</html>
