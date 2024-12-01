@@ -41,17 +41,4 @@ class Customer {
             console.log("Đối tượng không phải là tài khoản hợp lệ");
         }
     }
-
-    removeAccount() {
-        if (this._account) {
-            console.log(`Tài khoản ${this._account.getAccountNumber()} đã bị xóa khỏi khách hàng ${this._customerName}`);
-            this._account = null;
-        } else {
-            console.log(`Khách hàng ${this._customerName} không có tài khoản để xóa`);
-        }
-    }
-
-    hasAccount(accountNumber) {
-        return this._account && this._account.getAccountNumber() === accountNumber;
-    }
 }
